@@ -1,7 +1,17 @@
 import Modal from "react-bootstrap/Modal";
 import React from "react";
 import Button from "react-bootstrap/Button";
+import { postRequest } from "../Helper/apiHit";
 const CustomDeleteModal = (props)  => {
+    console.log(props);
+    
+    const handleDelete = async() => {
+        const data = new FormData();
+        data.set("id",props.id);
+        const respnse = await postRequest("index.php?apicall=delete",data);
+        props.onHide();
+        window.location.reload();
+    };
     return (
         <Modal
             {...props}
@@ -18,10 +28,10 @@ const CustomDeleteModal = (props)  => {
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={props.onHide}>
-                    Close
+                    CANCEL
                 </Button>
-                <Button variant="primary" onClick={props.onHide}>
-                    Save Changes
+                <Button variant="danger" onClick={handleDelete}>
+                   DELETE
                 </Button>
             </Modal.Footer>
         </Modal>
