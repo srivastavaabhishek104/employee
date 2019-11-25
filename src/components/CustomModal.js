@@ -62,27 +62,28 @@ const CustomModal = (props)  => {
             console.log(status);
             
             if(id === undefined) {
-                //console.log(name,designation,salary);
-                const data = {
-                    name: name,
-                    salary:salary,
-                    designation:designation
-                };
+                const data = new FormData();
+                data.set("name",name.trim());
+                data.set("salary",salary.trim());
+                data.set("designation",designation.trim());
                 const respnse = await postRequest("index.php?apicall=create",data);
                 console.log(respnse);
                 
-                //if(respo)
                 props.onHide();
+                window.location.reload();
             } else {
-                const data ={
-                    id: id,
-                    name: name,
-                    salary:salary,
-                    designation:designation
-                };
+                const data = new FormData();
+                data.set("name",name.trim());
+                data.set("salary",salary.trim());
+                data.set("designation",designation.trim());
+                data.set("id",id.trim());
+                
                 const respnse = await postRequest("index.php?apicall=edit",data);
                 console.log(respnse);
+                props.onHide();
+                window.location.reload();
             }
+            
         }
     };
 
